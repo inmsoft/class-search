@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반 번호 조회</title>
+    <script>
+        async function searchClass() {
+            const name = document.getElementById("name").value;
+            const birth = document.getElementById("birth").value;
+            const url = "https://script.google.com/macros/s/AKfycbz7C4aMQ7g_hEcnY34CTySk05OSYAri4HpX3YijnAuMBN4PfJt6zpHfNDLvIST2dxqErA/exec" + name + "&birth=" + birth;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data.error) {
+                document.getElementById("result").innerText = "정보를 찾을 수 없습니다.";
+            } else {
+                document.getElementById("result").innerText = `배정반: ${data.class}, 번호: ${data.number}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>이름과 생년월일을 입력하고 확인 버튼을 누르세요</h2>
+    <label>이름: <input type="text" id="name"></label><br>
+    <label>생년월일 (예: 040501): <input type="text" id="birth"></label><br>
+    <button onclick="searchClass()">확인</button>
+    <p id="result"></p>
+</body>
+</html>
